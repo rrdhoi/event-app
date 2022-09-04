@@ -1,4 +1,5 @@
 import 'package:event_app/configs/colors.dart';
+import 'package:event_app/resources/constant/named_routes.dart';
 import 'package:event_app/widgets/card_event_this_month.dart';
 import 'package:event_app/widgets/card_popular_event.dart';
 import 'package:event_app/widgets/my_navigation_bar.dart';
@@ -25,7 +26,7 @@ class HomePage extends StatelessWidget {
               const SizedBox(height: 24),
               _buildSearch(),
               const SizedBox(height: 24),
-              ..._buildPopularEvent(),
+              ..._buildPopularEvent(context),
               const SizedBox(height: 24),
               ..._buildEventThisMonth(),
             ],
@@ -103,7 +104,7 @@ class HomePage extends StatelessWidget {
         ),
       );
 
-  _buildPopularEvent() => [
+  _buildPopularEvent(BuildContext context) => [
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 24),
           child: Row(
@@ -135,7 +136,12 @@ class HomePage extends StatelessWidget {
             scrollDirection: Axis.horizontal,
             physics: const BouncingScrollPhysics(),
             children: [
-              for (int i = 0; i < 5; i++) const CardPopularEvent(),
+              for (int i = 0; i < 5; i++)
+                GestureDetector(
+                  onTap: () =>
+                      Navigator.pushNamed(context, NamedRoutes.detailScreen),
+                  child: const CardPopularEvent(),
+                ),
             ],
           ),
         )

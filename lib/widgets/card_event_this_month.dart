@@ -1,6 +1,5 @@
-import 'dart:ui';
-
 import 'package:event_app/configs/colors.dart';
+import 'package:event_app/widgets/stack_participant.dart';
 import 'package:flutter/material.dart';
 
 class CardEventThisMonth extends StatelessWidget {
@@ -54,9 +53,12 @@ class CardEventThisMonth extends StatelessWidget {
                   )
                 ],
               ),
-              Expanded(
-                child: Row(
-                  children: [_stackParticipant()],
+              const Expanded(
+                child: StackParticipant(
+                  width: 25,
+                  height: 25,
+                  fontSize: 12,
+                  positionText: 95,
                 ),
               )
             ],
@@ -89,117 +91,4 @@ class CardEventThisMonth extends StatelessWidget {
       ),
     );
   }
-
-  Stack _stackParticipant() => Stack(
-        clipBehavior: Clip.none,
-        alignment: Alignment.centerLeft,
-        children: [
-          Positioned(
-            child: Container(
-              width: 25,
-              height: 25,
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                border: Border.all(
-                  color: AppColors.whiteColor,
-                  width: 2,
-                ),
-                image: const DecorationImage(
-                  fit: BoxFit.fill,
-                  image: NetworkImage(
-                    "https://user-images.githubusercontent.com/31367048/171917578-5cb15089-e7a3-475c-bf06-d823faccf8ce.png",
-                  ),
-                ),
-              ),
-            ),
-          ),
-          Positioned(
-            left: 16,
-            child: Container(
-              width: 25,
-              height: 25,
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                border: Border.all(
-                  color: AppColors.whiteColor,
-                  width: 2,
-                ),
-                image: const DecorationImage(
-                  fit: BoxFit.fill,
-                  image: NetworkImage(
-                    "https://user-images.githubusercontent.com/31367048/171917578-5cb15089-e7a3-475c-bf06-d823faccf8ce.png",
-                  ),
-                ),
-              ),
-            ),
-          ),
-          Positioned(
-            left: 32,
-            child: Container(
-              width: 25,
-              height: 25,
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                border: Border.all(
-                  color: AppColors.whiteColor,
-                  width: 2,
-                ),
-                image: const DecorationImage(
-                  fit: BoxFit.fill,
-                  image: NetworkImage(
-                    "https://user-images.githubusercontent.com/31367048/171917578-5cb15089-e7a3-475c-bf06-d823faccf8ce.png",
-                  ),
-                ),
-              ),
-            ),
-          ),
-          Positioned(
-            left: 48,
-            child: Container(
-              width: 25,
-              height: 25,
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                border: Border.all(
-                  color: AppColors.whiteColor,
-                  width: 2,
-                ),
-                image: const DecorationImage(
-                  fit: BoxFit.fill,
-                  image: NetworkImage(
-                    "https://user-images.githubusercontent.com/31367048/171917578-5cb15089-e7a3-475c-bf06-d823faccf8ce.png",
-                  ),
-                ),
-              ),
-            ),
-          ),
-          Positioned(
-            left: 64,
-            child: Container(
-              width: 25,
-              height: 25,
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                border: Border.all(
-                  color: AppColors.whiteColor,
-                  width: 2,
-                ),
-                image: const DecorationImage(
-                  fit: BoxFit.fill,
-                  image: NetworkImage(
-                    "https://user-images.githubusercontent.com/31367048/171917578-5cb15089-e7a3-475c-bf06-d823faccf8ce.png",
-                  ),
-                ),
-              ),
-            ),
-          ),
-          const Positioned(
-            left: 95,
-            child: Text(
-              "250+ Joined",
-              style: TextStyle(color: AppColors.primaryColor, fontSize: 12),
-            ),
-          )
-        ],
-      );
 }
