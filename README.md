@@ -1,16 +1,22 @@
-# event_app
+# Event App
 
-A new Flutter project.
+Event App built with Flutter
 
-## Getting Started
+![image](https://user-images.githubusercontent.com/67297759/188787191-d01cad83-3bc4-4800-9476-74105da20f34.png)
 
-This project is a starting point for a Flutter application.
+## Installation
 
-A few resources to get you started if this is your first Flutter project:
+- Add [Flutter](https://flutter.dev/docs/get-started/install) to your machine
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+- Open this project folder with Terminal/CMD and run `flutter packages get`
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+- Run `flutter run` to build and run the debug app on your emulator/phone
+
+## Thanks
+
+- [Andri.](https://dribbble.com/andri145) for his [Event App Design Model](https://dribbble.com/shots/17444328-Event-Mobile-Apps-Design)
+- [Flutter](https://flutter.dev) for the great cross platform framework
+
+## License
+
+All the code available under the MIT licenses. See [LICENSE](LICENSE).
