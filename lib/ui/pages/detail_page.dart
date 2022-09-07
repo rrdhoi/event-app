@@ -1,7 +1,9 @@
-import 'package:event_app/configs/colors.dart';
-import 'package:event_app/resources/constant/named_routes.dart';
-import 'package:event_app/widgets/circle_button.dart';
-import 'package:event_app/widgets/stack_participant.dart';
+import 'package:event_app/app/configs/colors.dart';
+import 'package:event_app/app/resources/constant/named_routes.dart';
+import 'package:event_app/data/event_model.dart';
+import 'package:event_app/ui/widgets/circle_button.dart';
+import 'package:event_app/ui/widgets/custom_app_bar.dart';
+import 'package:event_app/ui/widgets/stack_participant.dart';
 import 'package:flutter/material.dart';
 
 class DetailPage extends StatelessWidget {
@@ -9,21 +11,26 @@ class DetailPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final Map<String, dynamic> eventData =
+        ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
+    final EventModel eventModel = EventModel.fromJson(eventData);
     return Scaffold(
+      appBar:
+          const PreferredSize(preferredSize: Size(0, 0), child: CustomAppBar()),
       body: Stack(
         children: [
           SingleChildScrollView(
             child: SafeArea(
               child: Padding(
                 padding:
-                    const EdgeInsets.symmetric(vertical: 30, horizontal: 24),
+                    const EdgeInsets.symmetric(vertical: 24, horizontal: 24),
                 child: Column(
                   children: [
-                    _buildAppBar(),
+                    _buildAppBar(context),
                     const SizedBox(height: 24),
-                    _buildCardImage(),
+                    _buildCardImage(eventModel),
                     const SizedBox(height: 16),
-                    _buildDescription(),
+                    _buildDescription(eventModel),
                   ],
                 ),
               ),
@@ -31,14 +38,15 @@ class DetailPage extends StatelessWidget {
           ),
           Align(
             alignment: Alignment.bottomCenter,
-            child: _buildBottomBar(context),
+            child: _buildBottomBar(context, eventModel),
           )
         ],
       ),
     );
   }
 
-  Widget _buildBottomBar(BuildContext context) => ClipRRect(
+  Widget _buildBottomBar(BuildContext context, EventModel eventModel) =>
+      ClipRRect(
         borderRadius: const BorderRadius.only(
           topLeft: Radius.circular(16),
           topRight: Radius.circular(16),
@@ -81,8 +89,11 @@ class DetailPage extends StatelessWidget {
                 ],
               ),
               ElevatedButton(
-                onPressed: () =>
-                    Navigator.pushNamed(context, NamedRoutes.ticketScreen),
+                onPressed: () => Navigator.pushNamed(
+                  context,
+                  NamedRoutes.ticketScreen,
+                  arguments: eventModel.toJson(),
+                ),
                 style: ElevatedButton.styleFrom(
                     primary: AppColors.primaryColor,
                     elevation: 0,
@@ -101,7 +112,7 @@ class DetailPage extends StatelessWidget {
         ),
       );
 
-  Widget _buildCardImage() => Stack(
+  Widget _buildCardImage(EventModel eventModel) => Stack(
         children: [
           Container(
             width: double.infinity,
@@ -116,10 +127,10 @@ class DetailPage extends StatelessWidget {
             margin: const EdgeInsets.only(top: 10, left: 10, right: 10),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(16),
-              image: const DecorationImage(
-                fit: BoxFit.fill,
+              image: DecorationImage(
+                fit: BoxFit.cover,
                 image: NetworkImage(
-                  "https://user-images.githubusercontent.com/31367048/171917578-5cb15089-e7a3-475c-bf06-d823faccf8ce.png",
+                  eventModel.image,
                 ),
               ),
             ),
@@ -137,14 +148,13 @@ class DetailPage extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.center,
-                children: const [
+                children: [
                   Text(
-                    "Feb",
-                    style: TextStyle(fontWeight: FontWeight.w500),
+                    eventModel.date.split(" ")[0],
                   ),
                   Text(
-                    "12",
-                    style: TextStyle(
+                    eventModel.date.split(" ")[1],
+                    style: const TextStyle(
                       color: AppColors.primaryColor,
                     ),
                   ),
@@ -155,21 +165,25 @@ class DetailPage extends StatelessWidget {
         ],
       );
 
-  Widget _buildAppBar() => Row(
+  Widget _buildAppBar(BuildContext context) => Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: const [
+        children: [
           CircleButton(
-            icon: Icons.arrow_back_ios_rounded,
+            icon: 'assets/images/ic_arrow_left.png',
+            onTap: () => Navigator.pop(context),
           ),
-          Text(
+          const Text(
             "Detail",
             style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
           ),
-          CircleButton(icon: Icons.more_horiz)
+          CircleButton(
+            icon: 'assets/images/ic_dots.png',
+            onTap: () {},
+          )
         ],
       );
 
-  _buildDescription() => Padding(
+  _buildDescription(EventModel eventModel) => Padding(
         padding: const EdgeInsets.symmetric(horizontal: 10),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -180,23 +194,24 @@ class DetailPage extends StatelessWidget {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text(
-                      "Festival Chinatown",
-                      style:
-                          TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
+                    Text(
+                      eventModel.title,
+                      style: const TextStyle(
+                          fontSize: 18, fontWeight: FontWeight.w600),
                     ),
                     const SizedBox(height: 6),
                     Row(
-                      children: const [
-                        Icon(
-                          Icons.location_on_outlined,
-                          color: AppColors.greyColor,
-                          size: 16,
+                      children: [
+                        Image.asset(
+                          'assets/images/ic_location.png',
+                          width: 16,
+                          height: 16,
                         ),
-                        SizedBox(width: 4),
+                        const SizedBox(width: 4),
                         Text(
-                          "Pontianak, Indonesia",
-                          style: TextStyle(color: AppColors.greyTextColor),
+                          eventModel.location,
+                          style:
+                              const TextStyle(color: AppColors.greyTextColor),
                         )
                       ],
                     ),
@@ -238,15 +253,14 @@ class DetailPage extends StatelessWidget {
             const SizedBox(height: 6),
             RichText(
               textAlign: TextAlign.justify,
-              text: const TextSpan(
-                text:
-                    "Festival Chinatown is a festival that is held in Pontianak West Kalimantan, Indonesia. This festival is held every year in the month of February, ",
-                style: TextStyle(
+              text: TextSpan(
+                text: eventModel.description,
+                style: const TextStyle(
                   color: AppColors.greyTextColor,
                   fontSize: 12,
                   height: 1.75,
                 ),
-                children: [
+                children: const [
                   TextSpan(
                     text: "Read More...",
                     style: TextStyle(

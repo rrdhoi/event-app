@@ -1,9 +1,13 @@
-import 'package:event_app/configs/colors.dart';
-import 'package:event_app/widgets/stack_participant.dart';
+import 'package:event_app/app/configs/colors.dart';
+import 'package:event_app/data/event_model.dart';
+import 'package:event_app/ui/widgets/stack_participant.dart';
 import 'package:flutter/material.dart';
 
 class CardEventThisMonth extends StatelessWidget {
-  const CardEventThisMonth({Key? key}) : super(key: key);
+  final EventModel eventModel;
+
+  const CardEventThisMonth({required this.eventModel, Key? key})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -21,8 +25,8 @@ class CardEventThisMonth extends StatelessWidget {
           ClipRRect(
             borderRadius: BorderRadius.circular(12),
             child: Image.network(
-              "https://user-images.githubusercontent.com/31367048/171917578-5cb15089-e7a3-475c-bf06-d823faccf8ce.png",
-              fit: BoxFit.fill,
+              eventModel.image,
+              fit: BoxFit.cover,
               width: 60,
               height: double.infinity,
             ),
@@ -31,22 +35,18 @@ class CardEventThisMonth extends StatelessWidget {
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text(
-                "Halloween Festival",
-                style: TextStyle(fontWeight: FontWeight.w500),
+              Text(
+                eventModel.title,
+                style: const TextStyle(fontWeight: FontWeight.w500),
               ),
               const SizedBox(height: 4),
               Row(
-                children: const [
-                  Icon(
-                    Icons.location_on_outlined,
-                    size: 14,
-                    color: AppColors.greyColor,
-                  ),
-                  SizedBox(width: 4),
+                children: [
+                  Image.asset('assets/images/ic_location.png', width: 14),
+                  const SizedBox(width: 4),
                   Text(
-                    "Pontianak, Indonesia",
-                    style: TextStyle(
+                    eventModel.location,
+                    style: const TextStyle(
                       fontSize: 12,
                       color: AppColors.greyTextColor,
                     ),
@@ -74,13 +74,13 @@ class CardEventThisMonth extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.center,
-              children: const [
+              children: [
                 Text(
-                  "Feb",
+                  eventModel.date.split(" ")[0],
                 ),
                 Text(
-                  "12",
-                  style: TextStyle(
+                  eventModel.date.split(" ")[1],
+                  style: const TextStyle(
                     color: AppColors.primaryColor,
                   ),
                 ),

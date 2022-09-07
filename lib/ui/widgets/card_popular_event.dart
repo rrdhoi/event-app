@@ -1,8 +1,12 @@
-import 'package:event_app/configs/colors.dart';
+import 'package:event_app/app/configs/colors.dart';
+import 'package:event_app/data/event_model.dart';
 import 'package:flutter/material.dart';
 
 class CardPopularEvent extends StatelessWidget {
-  const CardPopularEvent({Key? key}) : super(key: key);
+  final EventModel eventModel;
+
+  const CardPopularEvent({required this.eventModel, Key? key})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -32,8 +36,8 @@ class CardPopularEvent extends StatelessWidget {
           child: Stack(
             children: [
               Image.network(
-                "https://user-images.githubusercontent.com/31367048/171917578-5cb15089-e7a3-475c-bf06-d823faccf8ce.png",
-                fit: BoxFit.fill,
+                eventModel.image,
+                fit: BoxFit.cover,
                 width: double.infinity,
                 height: double.infinity,
               ),
@@ -50,13 +54,13 @@ class CardPopularEvent extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.center,
-                    children: const [
+                    children: [
                       Text(
-                        "Feb",
+                        eventModel.date.split(" ")[0],
                       ),
                       Text(
-                        "12",
-                        style: TextStyle(
+                        eventModel.date.split(" ")[1],
+                        style: const TextStyle(
                           color: AppColors.primaryColor,
                         ),
                       ),
@@ -86,22 +90,18 @@ class CardPopularEvent extends StatelessWidget {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text(
-                    "Festival Chinatown",
-                    style: TextStyle(fontWeight: FontWeight.w500),
+                  Text(
+                    eventModel.title,
+                    style: const TextStyle(fontWeight: FontWeight.w500),
                   ),
                   const SizedBox(height: 6),
                   Row(
-                    children: const [
-                      Icon(
-                        Icons.location_on_outlined,
-                        size: 14,
-                        color: AppColors.greyColor,
-                      ),
-                      SizedBox(width: 4),
+                    children: [
+                      Image.asset('assets/images/ic_location.png', width: 14),
+                      const SizedBox(width: 4),
                       Text(
-                        "Pontianak, Indonesia",
-                        style: TextStyle(
+                        eventModel.location,
+                        style: const TextStyle(
                           fontSize: 12,
                           color: AppColors.greyTextColor,
                         ),
@@ -118,11 +118,7 @@ class CardPopularEvent extends StatelessWidget {
                   color: AppColors.primaryLightColor,
                   borderRadius: BorderRadius.circular(8),
                 ),
-                child: const Icon(
-                  Icons.polyline_outlined,
-                  color: AppColors.primaryColor,
-                  size: 18,
-                ),
+                child: Image.asset('assets/images/ic_polyline.png', width: 18),
               )
             ],
           ),

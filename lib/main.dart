@@ -1,10 +1,9 @@
-import 'package:event_app/pages/detail_page.dart';
-import 'package:event_app/pages/home_page.dart';
-import 'package:event_app/pages/ticket_page.dart';
-import 'package:event_app/resources/constant/named_routes.dart';
+import 'package:event_app/app/configs/theme.dart';
+import 'package:event_app/app/resources/constant/named_routes.dart';
+import 'package:event_app/ui/pages/detail_page.dart';
+import 'package:event_app/ui/pages/home_page.dart';
+import 'package:event_app/ui/pages/ticket_page.dart';
 import 'package:flutter/material.dart';
-
-import 'configs/theme.dart';
 
 void main() {
   runApp(const MyApp());
@@ -25,9 +24,15 @@ class MyApp extends StatelessWidget {
           case NamedRoutes.homeScreen:
             return MaterialPageRoute(builder: (context) => const HomePage());
           case NamedRoutes.detailScreen:
-            return MaterialPageRoute(builder: (_) => const DetailPage());
+            return MaterialPageRoute(
+              builder: (_) => const DetailPage(),
+              settings: settings,
+            );
           case NamedRoutes.ticketScreen:
-            return MaterialPageRoute(builder: (context) => const TicketPage());
+            return MaterialPageRoute(
+              builder: (context) => const TicketPage(),
+              settings: settings,
+            );
           default:
             return MaterialPageRoute(builder: (context) => const HomePage());
         }

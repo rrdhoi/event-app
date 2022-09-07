@@ -1,4 +1,4 @@
-import 'package:event_app/configs/colors.dart';
+import 'package:event_app/app/configs/colors.dart';
 import 'package:flutter/material.dart';
 
 class MyNavigationBar extends StatefulWidget {
@@ -17,28 +17,23 @@ class _MyNavigationBarState extends State<MyNavigationBar> {
       animationDuration: const Duration(seconds: 3),
       labelBehavior: NavigationDestinationLabelBehavior.alwaysHide,
       backgroundColor: AppColors.whiteColor,
-      destinations: const [
+      destinations: [
         NavigationDestination(
-          icon: Icon(
-            Icons.home_rounded,
-          ),
+          icon: Image.asset("assets/images/ic_home.png", width: 24, height: 24),
           label: "Home",
         ),
         NavigationDestination(
-          icon: Icon(
-            Icons.event_outlined,
-          ),
-          label: "Event",
+          icon:
+              Image.asset("assets/images/ic_ticket.png", width: 24, height: 24),
+          label: "Ticket",
         ),
         NavigationDestination(
-            icon: Icon(
-              Icons.airplane_ticket_outlined,
-            ),
-            label: "Ticket"),
+            icon: Image.asset("assets/images/ic_calendar.png",
+                width: 24, height: 24),
+            label: "Event"),
         NavigationDestination(
-            icon: Icon(
-              Icons.person_outline,
-            ),
+            icon: Image.asset("assets/images/ic_profile.png",
+                width: 24, height: 24),
             label: "Profile"),
       ],
     );
