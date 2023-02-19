@@ -12,9 +12,9 @@ Event App built with Flutter
 
 - Run `flutter run` to build and run the debug app on your emulator/phone
 
-## Thanks
+## Credits
 
-- [Andri.](https://dribbble.com/andri145) for his [Event App Design Model](https://dribbble.com/shots/17444328-Event-Mobile-Apps-Design)
+- [Andri.](https://dribbble.com/andri145) for the original [Event App Design](https://dribbble.com/shots/17444328-Event-Mobile-Apps-Design)
 - [Flutter](https://flutter.dev) for the great cross platform framework
 
 ## License
